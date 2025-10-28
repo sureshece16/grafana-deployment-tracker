@@ -1,0 +1,53 @@
+{
+  "deployments": [
+    {
+      "Type": "Sprint",
+      "Name": "Sprint 27",
+      "PlannedDeploymentDate": "2025-01-01T00:00:00Z",
+      "DeploymentDate": "2025-01-09T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Sprint+27+Deployment+Guide",
+      "DelayDays": 8
+    },
+    {
+      "Type": "Sprint",
+      "Name": "Sprint 28",
+      "PlannedDeploymentDate": "2025-02-05T00:00:00Z",
+      "DeploymentDate": "2025-02-09T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Sprint+28+Deployment+Guide",
+      "DelayDays": 4
+    },
+    {
+      "Type": "Sprint",
+      "Name": "Sprint 29",
+      "PlannedDeploymentDate": "2025-03-02T00:00:00Z",
+      "DeploymentDate": "2025-03-20T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Sprint+29+Deployment+Guide",
+      "DelayDays": 18
+    },
+    {
+      "Type": "Sprint",
+      "Name": "Sprint 30",
+      "PlannedDeploymentDate": "2025-04-01T00:00:00Z",
+      "DeploymentDate": "2025-04-09T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Sprint+30+Deployment+Guide",
+      "DelayDays": 8
+    },
+    {
+      "Type": "Hotfix",
+      "Name": "Hotfix 29.1",
+      "PlannedDeploymentDate": "2025-04-15T00:00:00Z",
+      "DeploymentDate": "2025-04-16T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Hotfix+29.1+Deployment+Guide",
+      "DelayDays": 1
+    },
+    {
+      "Type": "Hotfix",
+      "Name": "Hotfix 29.2",
+      "PlannedDeploymentDate": "2025-05-16T00:00:00Z",
+      "DeploymentDate": "2025-05-18T00:00:00Z",
+      "Description": "https://karmayogibharat.atlassian.net/wiki/spaces/TES/pages/213712936/Hotfix+29.2+Deployment+Guide",
+      "DelayDays": 2
+    }
+  ],
+  "lastUpdated": "2025-05-18T00:00:00Z"
+}

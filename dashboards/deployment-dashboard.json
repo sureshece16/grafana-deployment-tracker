@@ -1,0 +1,537 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "deployment-tracker",
+    "title": "Sprint & Hotfix Deployment Tracker",
+    "tags": ["deployments", "sprints", "releases", "ci-cd"],
+    "timezone": "browser",
+    "schemaVersion": 38,
+    "version": 0,
+    "refresh": "5m",
+    "time": {
+      "from": "now-90d",
+      "to": "now"
+    },
+    "panels": [
+      {
+        "id": 1,
+        "title": "Total Deployments",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 4, "x": 0, "y": 0},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "Name", "text": "Name", "type": "string"}
+            ]
+          }
+        ],
+        "options": {
+          "reduceOptions": {
+            "values": false,
+            "calcs": ["count"]
+          },
+          "textMode": "value",
+          "colorMode": "background",
+          "graphMode": "none",
+          "text": {
+            "titleSize": 16,
+            "valueSize": 40
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "blue"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 2,
+        "title": "Average Delay (Days)",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 4, "x": 4, "y": 0},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "DelayDays", "text": "Delay", "type": "number"}
+            ]
+          }
+        ],
+        "options": {
+          "reduceOptions": {
+            "values": false,
+            "calcs": ["mean"]
+          },
+          "textMode": "value",
+          "colorMode": "background",
+          "graphMode": "area"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "days",
+            "decimals": 1,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"},
+                {"value": 5, "color": "yellow"},
+                {"value": 10, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "title": "Max Delay",
+        "type": "stat",
+        "gridPos": {"h": 4, "w": 4, "x": 8, "y": 0},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "DelayDays", "text": "Delay", "type": "number"}
+            ]
+          }
+        ],
+        "options": {
+          "reduceOptions": {
+            "values": false,
+            "calcs": ["max"]
+          },
+          "textMode": "value",
+          "colorMode": "background",
+          "graphMode": "none"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "days",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"},
+                {"value": 10, "color": "orange"},
+                {"value": 15, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "title": "Sprint vs Hotfix Distribution",
+        "type": "piechart",
+        "gridPos": {"h": 8, "w": 6, "x": 12, "y": 0},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "Type", "text": "Type", "type": "string"}
+            ]
+          }
+        ],
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "values": ["value", "percent"]
+          },
+          "pieType": "donut",
+          "tooltip": {
+            "mode": "single"
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "hideFrom": {
+                "tooltip": false,
+                "viz": false,
+                "legend": false
+              }
+            },
+            "color": {
+              "mode": "palette-classic"
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "title": "On-Time vs Delayed",
+        "type": "piechart",
+        "gridPos": {"h": 8, "w": 6, "x": 18, "y": 0},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "DelayDays", "text": "Delay", "type": "number"}
+            ]
+          }
+        ],
+        "transformations": [
+          {
+            "id": "calculateField",
+            "options": {
+              "mode": "binary",
+              "reduce": {
+                "reducer": "sum"
+              },
+              "binary": {
+                "left": "Delay",
+                "operator": ">",
+                "right": "0"
+              },
+              "alias": "Status"
+            }
+          }
+        ],
+        "options": {
+          "legend": {
+            "displayMode": "table",
+            "placement": "right",
+            "values": ["value", "percent"]
+          },
+          "pieType": "pie"
+        }
+      },
+      {
+        "id": 6,
+        "title": "Deployment History - Detailed Table",
+        "type": "table",
+        "gridPos": {"h": 10, "w": 24, "x": 0, "y": 8},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "Type", "text": "Type", "type": "string"},
+              {"selector": "Name", "text": "Release", "type": "string"},
+              {"selector": "PlannedDeploymentDate", "text": "Planned Date", "type": "timestamp"},
+              {"selector": "DeploymentDate", "text": "Actual Date", "type": "timestamp"},
+              {"selector": "DelayDays", "text": "Delay (Days)", "type": "number"},
+              {"selector": "Description", "text": "Documentation", "type": "string"}
+            ]
+          }
+        ],
+        "options": {
+          "showHeader": true,
+          "footer": {
+            "show": true,
+            "reducer": ["count"],
+            "fields": ["Release"]
+          },
+          "sortBy": [
+            {
+              "displayName": "Actual Date",
+              "desc": true
+            }
+          ]
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "left",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "inspect": false,
+              "filterable": true
+            },
+            "links": []
+          },
+          "overrides": [
+            {
+              "matcher": {"id": "byName", "options": "Delay (Days)"},
+              "properties": [
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "color-background"
+                  }
+                },
+                {
+                  "id": "custom.align",
+                  "value": "center"
+                },
+                {
+                  "id": "thresholds",
+                  "value": {
+                    "mode": "absolute",
+                    "steps": [
+                      {"value": null, "color": "green"},
+                      {"value": 1, "color": "yellow"},
+                      {"value": 5, "color": "orange"},
+                      {"value": 10, "color": "red"}
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "matcher": {"id": "byName", "options": "Type"},
+              "properties": [
+                {
+                  "id": "custom.cellOptions",
+                  "value": {
+                    "type": "color-text"
+                  }
+                },
+                {
+                  "id": "custom.align",
+                  "value": "center"
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "Sprint": {"color": "blue", "index": 0},
+                        "Hotfix": {"color": "orange", "index": 1}
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {"id": "byName", "options": "Documentation"},
+              "properties": [
+                {
+                  "id": "links",
+                  "value": [
+                    {
+                      "title": "View Documentation",
+                      "url": "${__data.fields.Documentation}"
+                    }
+                  ]
+                },
+                {
+                  "id": "custom.width",
+                  "value": 150
+                }
+              ]
+            },
+            {
+              "matcher": {"id": "byName", "options": "Planned Date"},
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "dateTimeAsIso"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 180
+                }
+              ]
+            },
+            {
+              "matcher": {"id": "byName", "options": "Actual Date"},
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "dateTimeAsIso"
+                },
+                {
+                  "id": "custom.width",
+                  "value": 180
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "title": "Deployment Delay Timeline",
+        "type": "bargauge",
+        "gridPos": {"h": 10, "w": 12, "x": 0, "y": 18},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "Name", "text": "Release", "type": "string"},
+              {"selector": "DelayDays", "text": "Delay", "type": "number"}
+            ]
+          }
+        ],
+        "options": {
+          "orientation": "horizontal",
+          "displayMode": "gradient",
+          "showUnfilled": true,
+          "minVizWidth": 0,
+          "minVizHeight": 10
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "days",
+            "min": 0,
+            "max": 20,
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"},
+                {"value": 5, "color": "yellow"},
+                {"value": 10, "color": "orange"},
+                {"value": 15, "color": "red"}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 8,
+        "title": "Delay Trend Over Time",
+        "type": "timeseries",
+        "gridPos": {"h": 10, "w": 12, "x": 12, "y": 18},
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {
+              "type": "yesoreyeram-infinity-datasource",
+              "uid": "infinity"
+            },
+            "type": "json",
+            "source": "url",
+            "format": "table",
+            "url": "YOUR_DATA_URL_HERE",
+            "root_selector": "deployments",
+            "columns": [
+              {"selector": "Name", "text": "Release", "type": "string"},
+              {"selector": "DeploymentDate", "text": "Date", "type": "timestamp"},
+              {"selector": "DelayDays", "text": "Delay", "type": "number"}
+            ]
+          }
+        ],
+        "options": {
+          "tooltip": {
+            "mode": "single",
+            "sort": "none"
+          },
+          "legend": {
+            "showLegend": true,
+            "displayMode": "list",
+            "placement": "bottom"
+          }
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "drawStyle": "line",
+              "lineInterpolation": "smooth",
+              "barAlignment": 0,
+              "lineWidth": 2,
+              "fillOpacity": 20,
+              "gradientMode": "none",
+              "spanNulls": false,
+              "showPoints": "always",
+              "pointSize": 8,
+              "stacking": {
+                "mode": "none",
+                "group": "A"
+              },
+              "axisPlacement": "auto",
+              "axisLabel": "Delay (Days)",
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "hideFrom": {
+                "tooltip": false,
+                "viz": false,
+                "legend": false
+              },
+              "thresholdsStyle": {
+                "mode": "line"
+              }
+            },
+            "color": {
+              "mode": "palette-classic"
+            },
+            "unit": "days",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"value": null, "color": "green"},
+                {"value": 5, "color": "yellow"},
+                {"value": 10, "color": "red"}
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "overwrite": true,
+  "message": "Deployed via Jenkins CI/CD",
+  "folderId": 0
+}
